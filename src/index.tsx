@@ -20,6 +20,23 @@ export interface ButtonProps {
 const successCbQueue: ((items: AvatarListItem[]) => void)[] = [];
 const fetchLock: Record<string, boolean> = {};
 
+export const mapUser = (data: { author?: any }[]) => {
+  const set = new Set();
+  return data
+    .filter(({ author }) => author != null)
+    .map(({ author }) => ({
+      url: author.avatar_url,
+      username: author.login,
+    }))
+    .filter(({ username }) => {
+      if (set.has(username)) {
+        return false;
+      }
+      set.add(username);
+      return true;
+    });
+};
+
 // 获取头像列表
 const getAvatarList = async ({
   fileName,
@@ -37,14 +54,7 @@ const getAvatarList = async ({
   if (!data) {
     return [];
   }
-  return data.map((item: any) => {
-    const {
-      author: { login: username, avatar_url: url },
-    } = item;
-    console.log(username, url);
-
-    return { username, url };
-  });
+  return mapUser(data);
 };
 
 const AvatarList: React.FC<ButtonProps> = function({
