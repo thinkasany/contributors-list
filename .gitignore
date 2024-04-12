@@ -6,3 +6,4 @@
 function/yarn.lock
 .doc
 .DS_Store
+.yarn
