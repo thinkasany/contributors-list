@@ -20,6 +20,13 @@ import AvatarList from 'github-contributors-list';
 ```
 
 
+```
+ npm login
+ npm version patch
+ npm publish
+```
+
+
 ## LICENSE
 
 MIT
